@@ -44,6 +44,12 @@ GitHub: https://github.com/deepak-game-dev
 ▶️ [Watch Project Vanguard — C++ Gameplay Programming Demo](https://youtu.be/J8x4wFI36iY)
 
 
+## Portfolio
+
+🌐 **[Visit My Game Development Portfolio](https://deepak-game-dev.github.io/)**
+
+Explore my gameplay programming projects, demonstrations, and development work.
+
 
 ## Future Learning
 
