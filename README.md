@@ -39,13 +39,17 @@ Deepak K
 
 GitHub: https://github.com/deepak-game-dev
 
+## Demo Video
+
+▶️ [Watch Project Vanguard — C++ Gameplay Programming Demo](https://youtu.be/J8x4wFI36iY)
+
+
+
 ## Future Learning
 
 Continue improving system integration, gameplay architecture, and the implementation of more advanced gameplay mechanics.
 
 
-## Demo Video
 
-▶️ [Watch Project Vanguard — C++ Gameplay Programming Demo](https://youtu.be/J8x4wFI36iY)
 
 
