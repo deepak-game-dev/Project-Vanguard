@@ -9,6 +9,8 @@ void Game::Run()
 {
     bool gameRunning = true;
 
+    std::cout << "Game Started!\n";
+    std::cout << "Press F to attack when near the enemy.\n\n";
     entityManager.AddEntity(std::make_unique<Player>());
     entityManager.AddEntity(std::make_unique<Enemy>());
 
@@ -94,15 +96,28 @@ void Game::Run()
 
                 if (distance <= 2.0f)
                 {
+                    float previousHealth =
+                        enemy->GetHealthData().currentHealth;
+
                     healthSystem.TakeDamage(
                         enemy->GetHealthData(),
                         20.0f
                     );
 
-                    std::cout
-                        << "Enemy Health: "
-                        << enemy->GetHealthData().currentHealth
-                        << std::endl;
+                    float currentHealth =
+                        enemy->GetHealthData().currentHealth;
+
+                    std::cout << "\nPlayer attacked the enemy!\n";
+                    std::cout << "Enemy Health: "
+                        << previousHealth
+                        << " -> "
+                        << currentHealth
+                        << '\n';
+
+                    if (enemy->IsDead())
+                    {
+                        std::cout << "Enemy Defeated!\n";
+                    }
                 }
             }
         }
@@ -136,6 +151,10 @@ void Game::Run()
                     *player,
                     healthSystem
                 );
+            }
+            else
+            {
+                std::cout << "Enemy is out of attack range!\n";
             }
 
             Vector3 enemyDirection =

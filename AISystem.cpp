@@ -5,7 +5,7 @@
 #include "PerceptionSystem.h"
 #include "RaycastSystem.h"
 #include "HealthSystem.h"
-
+#include <iostream>
 Vector3 AISystem::GetDirectionToPlayer(
     Enemy& enemy,
     Player& player)
@@ -27,12 +27,41 @@ EnemyState AISystem::GetState(Enemy& enemy)
     return enemy.GetState();
 }
 
+
 void AISystem::SetState(
     Enemy& enemy,
     EnemyState newState)
 {
+    EnemyState oldState = enemy.GetState();
+
+   
+    if (oldState == newState)
+    {
+        return;
+    }
+
     enemy.SetState(newState);
+
+    switch (newState)
+    {
+    case EnemyState::Patrol:
+        std::cout << "AI State: Patrol\n";
+        break;
+
+    case EnemyState::Chase:
+        std::cout << "AI State: Chase - Player detected!\n";
+        break;
+
+    case EnemyState::Attack:
+        std::cout << "AI State: Attack - Player in range!\n";
+        break;
+
+    case EnemyState::Investigate:
+        std::cout << "AI State: Investigate - Searching for player!\n";
+        break;
+    }
 }
+
 
 void AISystem::UpdateState(
     Enemy& enemy,
@@ -234,6 +263,7 @@ void AISystem::UpdateInvestigationTimer(
     }
 }
 
+
 void AISystem::Attack(
     Enemy& enemy,
     Player& player,
@@ -244,15 +274,37 @@ void AISystem::Attack(
         return;
     }
 
+    float previousHealth =
+        player.GetHealthData().currentHealth;
+
     healthSystem.TakeDamage(
         player.GetHealthData(),
         enemy.GetAttackDamage()
     );
 
+    float currentHealth =
+        player.GetHealthData().currentHealth;
+
+    std::cout << "Enemy attacked the player!\n";
+    std::cout << "Player Damage: "
+        << previousHealth - currentHealth
+        << '\n';
+    std::cout << "Player Health: "
+        << previousHealth
+        << " -> "
+        << currentHealth
+        << '\n';
+
+    if (healthSystem.IsDead(player.GetHealthData()))
+    {
+        std::cout << "Player defeated!\n";
+    }
+
     enemy.SetAttackTimer(
         enemy.GetAttackCooldown()
     );
 }
+
 
 void AISystem::UpdateAttackTimer(
     Enemy& enemy,
